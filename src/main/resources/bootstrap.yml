@@ -1,0 +1,53 @@
+app:
+  id: sc-client2-ms
+
+server:
+  port: 13820
+  servlet:
+    context-path: /sc_client2_ms
+spring:
+    application:
+      name: sc-client2-ms
+
+eureka:
+  client:
+    serviceUrl:
+       defaultZone: http://127.0.0.1:13910/eureka
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 15
+
+#apollo:
+#  bootstrap:
+#    enabled: true
+#    namespaces: application,business
+#    eagerLoad:
+#      enabled: true
+
+#mybatis config
+#mybatis:
+#  mapper-locations: classpath*:mybatis/mappers/**/*Mapper.xml
+#  config-location: classpath:sqlMapConfig.xml
+
+#feign:
+#  hystrix:
+#    enabled:true
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 30000
+#        readTimeout: 30000
+#        loggerLevel: full
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds:40000
+
+#ribbon:
+#  ReadTimeout: 100000
+#  ConnectTimeout: 100000
