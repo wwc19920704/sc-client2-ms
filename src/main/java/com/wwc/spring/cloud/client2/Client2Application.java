@@ -15,8 +15,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * @author wwc
  *
  */
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
-//@SpringBootApplication
+//@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+@SpringBootApplication
 public class Client2Application {
 	
 	public static void main(String[] args) {

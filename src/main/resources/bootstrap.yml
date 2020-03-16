@@ -8,7 +8,11 @@ server:
 spring:
     application:
       name: sc-client2-ms
-
+    datasource:
+      url: jdbc:mysql://172.20.0.90:3306/fintech_dev?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8&autoReconnect=true
+      username: hbfintech_dev
+      password: 123321
+      driver-class-name: com.mysql.jdbc.Driver
 eureka:
   client:
     serviceUrl:
@@ -26,8 +30,8 @@ eureka:
 #      enabled: true
 
 #mybatis config
-#mybatis:
-#  mapper-locations: classpath*:mybatis/mappers/**/*Mapper.xml
+mybatis:
+  mapper-locations: classpath*:com/wwc/spring/cloud/client2/mapper/*Mapper.xml
 #  config-location: classpath:sqlMapConfig.xml
 
 #feign:

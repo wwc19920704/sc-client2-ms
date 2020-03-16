@@ -92,6 +92,20 @@
 			<pattern><![CDATA[<access>]]>%d{YYYY-MM-dd HH:mm:ss}|[%thread]|%msg|<![CDATA[</access>]]>%n</pattern>
 		</encoder>
 	</appender>
+	
+	<appender name="com.wwc.spring.cloud.sql" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CUSTOM_LOG_HOME}/custom-00-sql-%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxHistory>24</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern><![CDATA[<access>]]>%d{YYYY-MM-dd HH:mm:ss}|[%thread]|%msg|<![CDATA[</access>]]>%n</pattern>
+		</encoder>
+	</appender>
 
 	<appender name="com.wwc.spring.cloud.pfme" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -164,39 +178,33 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 	<!--logger start -->
-	<logger name="com.wwc.spring.cloud.logger.debug" level="DEBUG" additivity="false">
+	<logger name="com.wwc.spring.cloud" level="DEBUG" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.debug" />
 	</logger>
-
-	<logger name="com.wwc.spring.cloud.logger.biz" level="DEBUG" additivity="false">
-		<appender-ref ref="com.wwc.spring.cloud.debug" />
-	</logger>
-
-	<logger name="com.wwc.spring.cloud.logger.warn" level="DEBUG" additivity="false">
+	<logger name="com.wwc.spring.cloud" level="WARN" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.warn" />
 	</logger>
 
-	<logger name="com.wwc.spring.cloud.logger.error" level="DEBUG" additivity="false">
+	<logger name="com.wwc.spring.cloud" level="ERROR" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.error" />
 	</logger>
 
-	<logger name="com.wwc.spring.cloud.logger.access" level="DEBUG" additivity="false">
+	<logger name="com.wwc.spring.cloud。client2.controller" level="DEBUG" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.access" />
 	</logger>
 
-	<logger name="com.wwc.spring.cloud.logger.system" level="DEBUG" additivity="false">
+	<logger name="com.wwc.spring.cloud" level="DEBUG" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.system" />
 	</logger>
 
-	<logger name="com.wwc.spring.cloud.logger.extra" level="DEBUG" additivity="false">
+	<logger name="com.wwc.spring.cloud" level="DEBUG" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.extra" />
 	</logger>
-	<logger name="com.wwc.spring.cloud.logger.pfme" level="DEBUG" additivity="false">
-		<appender-ref ref="com.wwc.spring.cloud.pfme" />
+	<!-- sql打印 -->
+	<logger name="com.wwc.spring.cloud.client2.dao" level="DEBUG" additivity="false">
+		<appender-ref ref="com.wwc.spring.cloud.sql" />
 	</logger>
-	<!-- hbfintech-logger end -->
-
-	<root level="INFO">
+	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>

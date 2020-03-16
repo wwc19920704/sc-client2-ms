@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwc.spring.cloud.client2.dao.ProductLoanContractDao">
+  <resultMap id="BaseResultMap" type="com.wwc.spring.cloud.client2.model.ProductLoanContract">
+    <id column="contract_index" jdbcType="BIGINT" property="id" />
+  </resultMap>
+  
+  
+  <select id="selectPage"  resultType="java.lang.Long">
+    select contract_index
+    from product_loan_contract
+    where   1=1 
+       <!-- [headIndex,tailIndex) 左闭右开区间-->
+	   <if test="queryDto.headIndex!=null and queryDto.tailIndex!=null">
+	    and contract_index &gt;=#{queryDto.headIndex}  and  contract_index &lt;#{queryDto.tailIndex}
+	   </if>
+	   <if test="queryDto.order !=null">
+	    <!-- 此处 queryDto.order的取值只有desc,aesc-->
+	    order by contract_index ${queryDto.order}
+	   </if>
+	   <if test="queryDto.pageSize !=null">
+	    limit #{queryDto.pageSize}
+	   </if> 
+  </select>
+</mapper>
