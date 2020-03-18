@@ -70,11 +70,11 @@ public class PageUtils {
 	 * @param queue
 	 */
 	private static void blockForWait(ConcurrentLinkedQueue<Future<PageQueryExcuteParam>> queue) {
-//		logger.debug("--------------wait sonThread excute finish-------------------");
+		logger.debug("--------------wait sonThread excute finish-------------------");
 		Future result=null;
 		while((result=queue.peek())!=null) {
 			if(result.isDone()) {
-//				logger.debug("--------------thread process ok?-------------------=="+result.isDone());
+				logger.debug("--------------thread process ok?-------------------=="+result.isDone());
 				queue.poll();
 			}
 		}
@@ -89,7 +89,7 @@ public class PageUtils {
 	 */
 	private static void consume(MutilPageCallback callable) {
 		// TODO Auto-generated method stub
-//		logger.debug("--------------wait consume  finish-------------------");
+		logger.debug("--------------wait consume  finish-------------------");
 		//参数对象
 		PageQueryExcuteParam param=null;
 		//取出参数对象
@@ -105,7 +105,7 @@ public class PageUtils {
 				callable.getParamQueue().poll();
 			}
 		}
-//		logger.debug("--------------consume have finished-------------------");
+		logger.debug("--------------consume have finished-------------------");
 	}
 	
 	/**
