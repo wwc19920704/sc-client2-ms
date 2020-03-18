@@ -12,7 +12,7 @@ import com.wwc.spring.cloud.client2.constant.BeanNameConsatnt;
 @Configuration
 public class ThreadPoolConfig {
 
-	private int initThreads=20;
+	private int initThreads=10;
 	
 	private int maxThreads=50;
 	

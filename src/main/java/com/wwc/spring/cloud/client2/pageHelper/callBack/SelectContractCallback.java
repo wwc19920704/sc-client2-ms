@@ -11,7 +11,7 @@ public class SelectContractCallback extends PageCallBack{
 	@Override
 	public void excuteByMainThreadAfter(PageQueryExcuteParam sonThreadParam) throws Exception {
 		// TODO Auto-generated method stub
-		logger.info("----------------singel-------------size==="+sonThreadParam.getIdList().size());
+//		logger.info("----------------singel-------------size==="+sonThreadParam.getIdList().size());
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class SelectContractCallback extends PageCallBack{
 		// TODO Auto-generated method stub
 		Thread.currentThread().sleep(2000);
 		for (Long contractIndex : sonThreadParam.getIdList()) {
-			logger.info("--------------singel---------------id==="+contractIndex);
+//			logger.info("--------------singel---------------id==="+contractIndex);
 		}
 		return sonThreadParam;
 	}

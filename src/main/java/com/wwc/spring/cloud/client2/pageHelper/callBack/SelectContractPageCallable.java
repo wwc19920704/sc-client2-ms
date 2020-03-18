@@ -19,14 +19,14 @@ public class SelectContractPageCallable extends MutilPageCallback{
 	@Override
 	public void excuteByMainThreadAfter(PageQueryExcuteParam sonThreadParam) throws Exception {
 		// TODO Auto-generated method stub
-		logger.info("-----------------------------size==="+sonThreadParam.getIdList().size());
+//		logger.info("-----------------------------size==="+sonThreadParam.getIdList().size());
 	}
 
 	@Override
 	public PageQueryExcuteParam excute(PageQueryExcuteParam sonThreadParam) throws Exception {
 		Thread.currentThread().sleep(2000);
 		for (Long contractIndex : sonThreadParam.getIdList()) {
-			logger.info("-----------------------------id==="+contractIndex);
+//			logger.info("-----------------------------id==="+contractIndex);
 		}
 		return sonThreadParam;
 	}

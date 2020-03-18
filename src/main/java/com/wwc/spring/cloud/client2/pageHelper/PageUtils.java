@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +18,12 @@ import com.wwc.spring.cloud.client2.pageHelper.service.BaseService;
 
 /**
  * 	分页组件
- *  组件依赖spring框架
  * @author wwc
  *
  */
 public class PageUtils {
 	
-	protected static Logger logger = LoggerFactory.getLogger(PageUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(PageUtils.class);
 	
 	/**
 	 * 单线程执行回调
@@ -73,11 +70,11 @@ public class PageUtils {
 	 * @param queue
 	 */
 	private static void blockForWait(ConcurrentLinkedQueue<Future<PageQueryExcuteParam>> queue) {
-		logger.debug("--------------wait sonThread excute finish-------------------");
+//		logger.debug("--------------wait sonThread excute finish-------------------");
 		Future result=null;
 		while((result=queue.peek())!=null) {
 			if(result.isDone()) {
-				logger.debug("--------------thread process ok?-------------------=="+result.isDone());
+//				logger.debug("--------------thread process ok?-------------------=="+result.isDone());
 				queue.poll();
 			}
 		}
@@ -92,7 +89,7 @@ public class PageUtils {
 	 */
 	private static void consume(MutilPageCallback callable) {
 		// TODO Auto-generated method stub
-		logger.debug("--------------wait consume excute finish-------------------");
+//		logger.debug("--------------wait consume  finish-------------------");
 		//参数对象
 		PageQueryExcuteParam param=null;
 		//取出参数对象
@@ -108,7 +105,7 @@ public class PageUtils {
 				callable.getParamQueue().poll();
 			}
 		}
-		logger.debug("--------------all consume have excuted finished-------------------");
+//		logger.debug("--------------consume have finished-------------------");
 	}
 	
 	/**

@@ -141,12 +141,12 @@ public class FutureTest extends BaseTest{
 		//组装分页查询条件
 		SelectContractDto selectContractDto=new SelectContractDto();
 		selectContractDto.setNeedObjList(false);
-		selectContractDto.setPrimaryDifference(selectContractDto.LIMIT_SIZE*selectContractDto.ONE_HUNDRED);
-		selectContractDto.setQueryLimitCustomize(selectContractDto.LIMIT_SIZE);
+		selectContractDto.setPrimaryDifference(selectContractDto.ONE_HUNDRED*selectContractDto.ONE_HUNDRED);
+		selectContractDto.setQueryLimitCustomize(selectContractDto.ONE_HUNDRED);
 //		selectContractDto.setQueryTimes(10);
 		//多线程查询
-//		PageUtils.queryExcuteByMutilThreads(productLoanContractService, selectContractDto, selectContractPageCallable, null);
+		PageUtils.queryExcuteByMutilThreads(productLoanContractService, selectContractDto, selectContractPageCallable, null);
 		//单线程分页查询
-		PageUtils.queryExcute(productLoanContractService, selectContractDto, selectContractCallback, null);
+//		PageUtils.queryExcute(productLoanContractService, selectContractDto, selectContractCallback, null);
 	}
 }
