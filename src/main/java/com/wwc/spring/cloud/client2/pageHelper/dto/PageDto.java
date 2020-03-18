@@ -1,4 +1,4 @@
-package com.wwc.spring.cloud.client2.pageHelper;
+package com.wwc.spring.cloud.client2.pageHelper.dto;
 
 /**
  * 	根据主键分页公共dto

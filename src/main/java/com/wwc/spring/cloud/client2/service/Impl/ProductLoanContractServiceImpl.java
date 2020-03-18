@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.wwc.spring.cloud.client2.dao.ProductLoanContractDao;
 import com.wwc.spring.cloud.client2.dto.SelectContractDto;
-import com.wwc.spring.cloud.client2.pageHelper.PageDto;
+import com.wwc.spring.cloud.client2.pageHelper.dto.PageDto;
 import com.wwc.spring.cloud.client2.service.ProductLoanContractService;
 
 @Service

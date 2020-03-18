@@ -12,15 +12,13 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 
 import com.wwc.spring.cloud.client2.constant.BeanNameConsatnt;
 import com.wwc.spring.cloud.client2.dto.SelectContractDto;
 import com.wwc.spring.cloud.client2.futrue.WorkCallBack;
-import com.wwc.spring.cloud.client2.pageHelper.PageCallBackByMutilThread;
 import com.wwc.spring.cloud.client2.pageHelper.PageUtils;
 import com.wwc.spring.cloud.client2.pageHelper.callBack.SelectContractCallback;
+import com.wwc.spring.cloud.client2.pageHelper.callBack.SelectContractPageCallable;
 import com.wwc.spring.cloud.client2.service.ProductLoanContractService;
 import com.wwc.spring.cloud.client2.service.WorkService;
 
@@ -125,28 +123,14 @@ public class FutureTest extends BaseTest{
 		logger.info("任务结束--------------------"+(endDate.getTime()-startDate.getTime()));
 	}
 	
+	@Autowired
+	private  ProductLoanContractService productLoanContractService;
+	
+	@Autowired
+	private SelectContractPageCallable selectContractPageCallable;
 	
 	@Autowired
 	private SelectContractCallback selectContractCallback;
-	
-	/**
-	 * 单线程分页查询
-	 * @throws Exception
-	 */
-	@Test
-	public void testPageUtils() throws Exception {
-		SelectContractDto selectContractDto=new SelectContractDto();
-		selectContractDto.setNeedObjList(false);
-		selectContractDto.setPrimaryDifference(selectContractDto.LIMIT_SIZE*selectContractDto.ONE_HUNDRED);
-		selectContractDto.setQueryLimitCustomize(selectContractDto.LIMIT_SIZE);
-		PageUtils.queryExcute(productLoanContractService, selectContractDto, selectContractCallback, null);
-	}
-	
-	@Autowired
-	private PageCallBackByMutilThread callBack;
-	
-	@Autowired
-	private  ProductLoanContractService productLoanContractService;
 	
 	/**
 	 * 多线程分页查询
@@ -159,11 +143,10 @@ public class FutureTest extends BaseTest{
 		selectContractDto.setNeedObjList(false);
 		selectContractDto.setPrimaryDifference(selectContractDto.LIMIT_SIZE*selectContractDto.ONE_HUNDRED);
 		selectContractDto.setQueryLimitCustomize(selectContractDto.LIMIT_SIZE);
-		selectContractDto.setQueryTimes(10);
-		PageUtils.queryExcuteByMutilThreads(productLoanContractService, selectContractDto, callBack, null);
-		
-//		for (int i = 0; i < 100; i++) {
-//			callBack.excuteBySonThread(null, null);
-//		}
+//		selectContractDto.setQueryTimes(10);
+		//多线程查询
+//		PageUtils.queryExcuteByMutilThreads(productLoanContractService, selectContractDto, selectContractPageCallable, null);
+		//单线程分页查询
+		PageUtils.queryExcute(productLoanContractService, selectContractDto, selectContractCallback, null);
 	}
 }

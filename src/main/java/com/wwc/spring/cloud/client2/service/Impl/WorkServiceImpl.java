@@ -1,8 +1,5 @@
 package com.wwc.spring.cloud.client2.service.Impl;
 
-import java.util.List;
-import java.util.UUID;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -14,11 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFutureTask;
 
 import com.wwc.spring.cloud.client2.constant.BeanNameConsatnt;
-import com.wwc.spring.cloud.client2.dto.SelectContractDto;
 import com.wwc.spring.cloud.client2.futrue.WorkCallBack;
 import com.wwc.spring.cloud.client2.pageHelper.PageCallBack;
-import com.wwc.spring.cloud.client2.pageHelper.PageCallBackByMutilThread;
-import com.wwc.spring.cloud.client2.pageHelper.PageUtils;
 import com.wwc.spring.cloud.client2.pageHelper.callBack.SelectContractCallback;
 import com.wwc.spring.cloud.client2.service.ProductLoanContractService;
 import com.wwc.spring.cloud.client2.service.WorkService;

@@ -1,19 +1,31 @@
 package com.wwc.spring.cloud.client2.pageHelper;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wwc.spring.cloud.client2.pageHelper.dto.PageQueryExcuteParam;
+
+/**
+ * 	分页查询回调函数
+ * @author wwc
+ *
+ */
 public abstract class PageCallBack {
 	
 	protected static Logger logger=LoggerFactory.getLogger(PageCallBack.class);
 
 	/**
-	 * 分页查询得到结果集之后的操作
-	 * @param result 实体结果集
-	 * @param ids	主键集合
-	 * @param 返回值
+	 * 	在主线程中的后置处理接口,同步操作
+	 * @param sonThreadParam
+	 * @throws Exception
 	 */
-	public abstract void excute(List result,List<Long> ids,Object ret) throws Exception;
+	public abstract void excuteByMainThreadAfter(PageQueryExcuteParam sonThreadParam) throws Exception;
+	
+	/**
+	 * 	需要执行的主逻辑,
+	 * @param sonThreadParam 参数
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract PageQueryExcuteParam excute(PageQueryExcuteParam sonThreadParam) throws Exception;
 }
