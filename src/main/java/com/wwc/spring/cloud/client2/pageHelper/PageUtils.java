@@ -56,7 +56,7 @@ public class PageUtils {
 	 * @throws Exception
 	 */
 	public static void queryExcuteByMutilThreads(BaseService baseService,
-			PageDto pageDto,MutilPageCallback callable,Object ret)throws Exception {
+			PageDto pageDto,MutilThreadPageCallback callable,Object ret)throws Exception {
 		//查询
 		pageQuery(baseService, pageDto, callable, ret, mutil);
 		//消费参数队列中的数据
@@ -87,7 +87,7 @@ public class PageUtils {
 	 * @param callable
 	 * @param threadPoolExecutor
 	 */
-	private static void consume(MutilPageCallback callable) {
+	private static void consume(MutilThreadPageCallback callable) {
 		// TODO Auto-generated method stub
 		logger.debug("--------------wait consume  finish-------------------");
 		//参数对象
@@ -154,6 +154,8 @@ public class PageUtils {
 		int queryTimes=1;
 		//本次查询的最大index
 		Long lastIndexInList=0l;
+		//所有符合条件的主键的数量
+		int  count=0;
 		//开始循环
 		while(circuitCondition(pageDto, queryTimes, headIndex, tailIndex)) {
 			//组装查询条件
@@ -164,6 +166,8 @@ public class PageUtils {
 			//查询出符合条件的id集合
 			List<Long> idList=baseService.queryExtremesIdByCons(pageDto);
 			if(idList!=null&& !idList.isEmpty()) {
+				//主键数量+1
+				count=count+idList.size();
 				//正序排序;升序排序
 				Collections.sort(idList);
 				//获取最大的元素
@@ -191,15 +195,11 @@ public class PageUtils {
 				//后置处理,同步
 				callBack.excuteByMainThreadAfter(sonThreadParam);
 			}
-			//起始的index增加制定的主键偏移量
-			headIndex+=pageDto.getPrimaryDifference();
-			//比较,谁大用谁,以减少不必要的查询
-			if(headIndex<lastIndexInList) {
-				headIndex=lastIndexInList;
-			}
+			//主键最大的作为下次查询的起点
+			headIndex=lastIndexInList;
 			queryTimes++;
 		}
-		logger.debug("end_page,queryTimes=="+queryTimes);
+		logger.debug("end_page,queryTimes=="+queryTimes+",count by queried=="+count);
 	}
 	
 	/**

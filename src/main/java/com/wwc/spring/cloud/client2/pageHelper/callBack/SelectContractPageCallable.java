@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import com.wwc.spring.cloud.client2.constant.BeanNameConsatnt;
-import com.wwc.spring.cloud.client2.pageHelper.MutilPageCallback;
+import com.wwc.spring.cloud.client2.pageHelper.MutilThreadPageCallback;
 import com.wwc.spring.cloud.client2.pageHelper.dto.PageQueryExcuteParam;
 
 @Component
-public class SelectContractPageCallable extends MutilPageCallback{
+public class SelectContractPageCallable extends MutilThreadPageCallback{
 	
 	@Resource(name=BeanNameConsatnt.THREAD_POOL_BEAN)
 	private ThreadPoolExecutor executor;

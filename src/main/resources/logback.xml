@@ -103,7 +103,7 @@
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 		<encoder>
-			<pattern><![CDATA[<access>]]>%d{YYYY-MM-dd HH:mm:ss}|[%thread]|%msg|<![CDATA[</access>]]>%n</pattern>
+			<pattern><![CDATA[<sql>]]>%d{YYYY-MM-dd HH:mm:ss}|[%thread]|%msg|<![CDATA[</sql>]]>%n</pattern>
 		</encoder>
 	</appender>
 
@@ -178,31 +178,26 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 	<!--logger start -->
-	<logger name="com.wwc.spring.cloud" level="DEBUG" additivity="false">
+	<logger name="com.**" level="DEBUG" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.debug" />
 	</logger>
-	<logger name="com.wwc.spring.cloud" level="WARN" additivity="false">
-		<appender-ref ref="com.wwc.spring.cloud.warn" />
-	</logger>
 
-	<logger name="com.wwc.spring.cloud" level="ERROR" additivity="false">
+	<logger name="com.**" level="ERROR" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.error" />
 	</logger>
 
-	<logger name="com.wwc.spring.cloud。client2.controller" level="DEBUG" additivity="false">
+	<logger name="com.**.controller" level="DEBUG" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.access" />
+		<appender-ref ref="STDOUT" />
 	</logger>
-
-	<logger name="com.wwc.spring.cloud" level="DEBUG" additivity="false">
-		<appender-ref ref="com.wwc.spring.cloud.system" />
-	</logger>
-
-	<logger name="com.wwc.spring.cloud" level="DEBUG" additivity="false">
+	<logger name="com.**.api" level="DEBUG" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.extra" />
+		<appender-ref ref="STDOUT" />
 	</logger>
 	<!-- sql打印 -->
 	<logger name="com.wwc.spring.cloud.client2.dao" level="DEBUG" additivity="false">
 		<appender-ref ref="com.wwc.spring.cloud.sql" />
+		<appender-ref ref="STDOUT" />
 	</logger>
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />

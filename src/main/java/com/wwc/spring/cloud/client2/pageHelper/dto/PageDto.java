@@ -60,11 +60,6 @@ public class PageDto {
 	private boolean isNeedObjList=false;
 	
 	/**
-	 * 每次循环查询之后的主键便宜量
-	 */
-	private Integer primaryDifference=FIV_HUNDRED;
-	
-	/**
 	 * 查询次数
 	 * 
 	 */
@@ -74,14 +69,6 @@ public class PageDto {
 	 * 用户自定义每次查询的数量
 	 */
 	private Integer queryLimitCustomize=FIV_HUNDRED;
-	
-	public Integer getPrimaryDifference() {
-		return primaryDifference;
-	}
-
-	public void setPrimaryDifference(Integer primaryDifference) {
-		this.primaryDifference = primaryDifference;
-	}
 
 	public Integer getQueryTimes() {
 		return queryTimes;

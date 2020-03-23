@@ -48,7 +48,6 @@ public class Controller {
 	private SelectContractDto getDto() {
 		SelectContractDto selectContractDto=new SelectContractDto();
 		selectContractDto.setNeedObjList(false);
-		selectContractDto.setPrimaryDifference(selectContractDto.ONE_HUNDRED*selectContractDto.ONE_HUNDRED);
 		selectContractDto.setQueryLimitCustomize(selectContractDto.ONE_HUNDRED);
 //		selectContractDto.setQueryTimes(10);
 		return selectContractDto;

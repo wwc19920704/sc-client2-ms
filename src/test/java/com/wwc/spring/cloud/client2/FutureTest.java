@@ -146,6 +146,14 @@ public class FutureTest extends BaseTest{
 //		selectContractDto.setQueryTimes(10);
 		//多线程查询
 		PageUtils.queryExcuteByMutilThreads(productLoanContractService, selectContractDto, selectContractPageCallable, null);
+		try {
+			int a=Integer.parseInt("aaaaa");
+		} catch (Exception e) {
+			// TODO: handle exception
+//			e.printStackTrace();
+			logger.error("-----------------------异常", e);
+		}
+		
 		//单线程分页查询
 //		PageUtils.queryExcute(productLoanContractService, selectContractDto, selectContractCallback, null);
 	}

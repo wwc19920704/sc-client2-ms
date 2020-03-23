@@ -12,12 +12,12 @@ import com.wwc.spring.cloud.client2.pageHelper.dto.PageQueryExcuteParam;
  * @author wwc
  *
  */
-public abstract class MutilPageCallback extends PageCallBack implements Callable <PageQueryExcuteParam>{
+public abstract class MutilThreadPageCallback extends PageCallBack implements Callable <PageQueryExcuteParam>{
 
 	/**
 	 * 设置queue
 	 */
-	public MutilPageCallback() {
+	public MutilThreadPageCallback() {
 		//初始化队列
 		initQueue();
 	}
