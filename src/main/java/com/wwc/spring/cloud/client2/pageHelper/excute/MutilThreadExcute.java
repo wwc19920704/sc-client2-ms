@@ -4,6 +4,11 @@ import com.wwc.spring.cloud.client2.pageHelper.MutilThreadPageCallback;
 import com.wwc.spring.cloud.client2.pageHelper.PageCallBack;
 import com.wwc.spring.cloud.client2.pageHelper.dto.PageQueryExcuteParam;
 
+/**
+ * 	多线程处理执行器
+ * @author wwc
+ *
+ */
 public class MutilThreadExcute extends Excute{
 
 	@Override

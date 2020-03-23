@@ -2,11 +2,11 @@ package com.wwc.spring.cloud.client2.pageHelper.callBack;
 
 import org.springframework.stereotype.Component;
 
-import com.wwc.spring.cloud.client2.pageHelper.PageCallBack;
+import com.wwc.spring.cloud.client2.pageHelper.SinglePageCallback;
 import com.wwc.spring.cloud.client2.pageHelper.dto.PageQueryExcuteParam;
 
 @Component
-public class SelectContractCallback extends PageCallBack{
+public class SelectContractCallback extends SinglePageCallback{
 
 	@Override
 	public void excuteByMainThreadAfter(PageQueryExcuteParam sonThreadParam) throws Exception {

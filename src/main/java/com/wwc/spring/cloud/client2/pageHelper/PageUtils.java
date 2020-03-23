@@ -13,14 +13,10 @@ import com.wwc.spring.cloud.client2.pageHelper.dto.PageDto;
 import com.wwc.spring.cloud.client2.pageHelper.dto.PageQueryExcuteParam;
 import com.wwc.spring.cloud.client2.pageHelper.excute.Excute;
 import com.wwc.spring.cloud.client2.pageHelper.excute.MutilThreadExcute;
+import com.wwc.spring.cloud.client2.pageHelper.excute.MutilThreadExcuteForSpring;
 import com.wwc.spring.cloud.client2.pageHelper.excute.SigngleThreadExcute;
 import com.wwc.spring.cloud.client2.pageHelper.service.BaseService;
 
-/**
- * 	分页组件
- * @author wwc
- *
- */
 public class PageUtils {
 	
 	private static Logger logger = LoggerFactory.getLogger(PageUtils.class);
@@ -36,6 +32,11 @@ public class PageUtils {
 	private static Excute mutil=new MutilThreadExcute();
 	
 	/**
+	 * 	spring框架多线程执行回调
+	 */
+	private static Excute mutilForSpring=new MutilThreadExcuteForSpring();
+	
+	/**
 	 * 	分页查询方法,使用场景:只能在前端页面不展示的情况下，且需要对每一次的结果集做出处理的时使用
 	 * @param baseDao 
 	 * @param pageDto 分页参数
@@ -43,7 +44,8 @@ public class PageUtils {
 	 * @param size 每页数量
 	 */
 	public static void queryExcute(BaseService baseService,
-			PageDto pageDto,PageCallBack callBack,Object ret)throws Exception {
+			PageDto pageDto,SinglePageCallback callBack,Object ret)throws Exception {
+//		Excute single=new SigngleThreadExcute();
 		pageQuery(baseService, pageDto, callBack, ret, single);
 	}
 	
@@ -56,11 +58,30 @@ public class PageUtils {
 	 * @throws Exception
 	 */
 	public static void queryExcuteByMutilThreads(BaseService baseService,
-			PageDto pageDto,MutilThreadPageCallback callable,Object ret)throws Exception {
+			PageDto pageDto, final MutilThreadPageCallback callable,Object ret)throws Exception {
+//		Excute mutil=new MutilThreadExcute();
 		//查询
 		pageQuery(baseService, pageDto, callable, ret, mutil);
 		//消费参数队列中的数据
 		consume(callable);
+		//阻塞,等待多线程任务全部完成
+		blockForWait(callable.getFutureQueue());
+	}
+	
+	
+	
+	
+	/**
+	 * 依赖spring框架的分页查询多线程处理
+	 * @param baseService 实现BaseService的实现类
+	 * @param pageDto 分页参数
+	 * @param callBack 回调函数
+	 * @param result  主线程中要随着子线程的执行而做出处理的变量
+	 * @throws Exception
+	 */
+	public static void queryExcuteByMutilThreadsForSpring(BaseService baseService,
+			PageDto pageDto,MutilThreadPageCallbackForSpring callable,Object result)throws Exception {
+		pageQuery(baseService, pageDto, callable, result, mutilForSpring);
 		//阻塞,等待多线程任务全部完成
 		blockForWait(callable.getFutureQueue());
 	}
@@ -70,15 +91,14 @@ public class PageUtils {
 	 * @param queue
 	 */
 	private static void blockForWait(ConcurrentLinkedQueue<Future<PageQueryExcuteParam>> queue) {
-		logger.debug("--------------wait sonThread excute finish-------------------");
+		logger.debug("--------------wait sonThread excute start-------------------future_queue_size=="+queue.size());
 		Future result=null;
 		while((result=queue.peek())!=null) {
 			if(result.isDone()) {
-				logger.debug("--------------thread process ok?-------------------=="+result.isDone());
 				queue.poll();
 			}
 		}
-		logger.debug("--------------all sonThread have excuted finished-------------------");
+		logger.debug("--------------all sonThread have excuted finished------------future_queue_size=="+queue.size());
 	}
 
 
@@ -89,7 +109,7 @@ public class PageUtils {
 	 */
 	private static void consume(MutilThreadPageCallback callable) {
 		// TODO Auto-generated method stub
-		logger.debug("--------------wait consume  finish-------------------");
+		logger.debug("--------------wait consume start-------------------param_queue_size=="+callable.getFutureQueue().size());
 		//参数对象
 		PageQueryExcuteParam param=null;
 		//取出参数对象
@@ -105,7 +125,7 @@ public class PageUtils {
 				callable.getParamQueue().poll();
 			}
 		}
-		logger.debug("--------------consume have finished-------------------");
+		logger.debug("--------------consume have finished-------------------param_queue_size=="+callable.getFutureQueue().size());
 	}
 	
 	/**
@@ -217,12 +237,11 @@ public class PageUtils {
 			if(pageDto.getQueryTimes()<queryTimes) {
 				return false;
 			}
-			if(headIndex>tailIndex) {
+			if(headIndex>=tailIndex) {
 				return false;
 			}
 			return true;
 		}
-		return (headIndex<=tailIndex)?true:false; 
+		return (headIndex<tailIndex)?true:false; 
 	}
 }
-
