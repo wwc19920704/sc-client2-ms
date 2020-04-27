@@ -69,7 +69,7 @@ public class PageDto {
 	 * 用户自定义每次查询的数量
 	 */
 	private Integer queryLimitCustomize=FIV_HUNDRED;
-
+	
 	public Integer getQueryTimes() {
 		return queryTimes;
 	}

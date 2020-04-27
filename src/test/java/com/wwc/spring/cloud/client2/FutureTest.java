@@ -141,7 +141,6 @@ public class FutureTest extends BaseTest{
 		//组装分页查询条件
 		SelectContractDto selectContractDto=new SelectContractDto();
 		selectContractDto.setNeedObjList(false);
-		selectContractDto.setPrimaryDifference(selectContractDto.ONE_HUNDRED*selectContractDto.ONE_HUNDRED);
 		selectContractDto.setQueryLimitCustomize(selectContractDto.ONE_HUNDRED);
 //		selectContractDto.setQueryTimes(10);
 		//多线程查询

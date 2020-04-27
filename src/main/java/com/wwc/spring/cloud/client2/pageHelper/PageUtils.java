@@ -214,9 +214,12 @@ public class PageUtils {
 				excute.excute(callBack,sonThreadParam);
 				//后置处理,同步
 				callBack.excuteByMainThreadAfter(sonThreadParam);
+				//主键最大的作为下次查询的起点
+				headIndex=lastIndexInList;
+			}else {
+				//查询为空则直接跳出循环,
+				headIndex=tailIndex;
 			}
-			//主键最大的作为下次查询的起点
-			headIndex=lastIndexInList;
 			queryTimes++;
 		}
 		logger.debug("end_page,queryTimes=="+queryTimes+",count by queried=="+count);

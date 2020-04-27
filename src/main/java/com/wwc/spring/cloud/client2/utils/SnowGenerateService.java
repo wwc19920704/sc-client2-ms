@@ -132,7 +132,6 @@ public class SnowGenerateService {
 		if(sb.toString().length()!=totalBit()) {
 			logger.info("str----sb"+sb.toString());
 		}
-//		logger.info("------------------str位数=="+logger.toString().length());
 		return sb.toString();
 	}
 	
